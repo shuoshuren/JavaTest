@@ -45,27 +45,37 @@ public class JsoupTest {
             if (!data.startsWith("var zodiac_content")) {
                 continue;
             }
-            //截取；
-            int flag = 0;
-            int index = 0;
-            int count = data.length();
-            for (index = 0; index < count; index++) {
-                String subStr = data.substring(index, index + 1);
-                if ("[".equals(subStr)) {
-                    flag += 1;
-                }
-                if ("]".equals(subStr)) {
-                    flag -= 1;
-                    if (flag == 0) {
-                        System.out.println("index = " + index);
-                        break;
-                    }
+            //截取数据
+            String subData = subStr(data);
+            System.out.println("subData:" + subData);
+            System.out.println(System.currentTimeMillis()+"-----------------------------------------");
+        }
+    }
+
+    /**
+     * 截取字符串通过匹配 【】
+     * @param data
+     * @return
+     */
+    public static String subStr(String data){
+        System.out.println(System.currentTimeMillis());
+        int flag = 0;
+        int index = 0;
+        int count = data.length();
+        for (index = 0; index < count; index++) {
+            String subStr = data.substring(index, index + 1);
+            if ("[".equals(subStr)) {
+                flag += 1;
+            }
+            if ("]".equals(subStr)) {
+                flag -= 1;
+                if (flag == 0) {
+                    System.out.println("index = " + index);
+                    break;
                 }
             }
-            //截取数据
-            String subData = data.substring(data.indexOf("["), index + 1);
-            System.out.println("subData:" + subData);
-            System.out.println("-----------------------------------------");
         }
+        //截取数据
+        return data.substring(data.indexOf("["), index + 1);
     }
 }
